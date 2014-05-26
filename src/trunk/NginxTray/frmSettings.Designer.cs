@@ -29,184 +29,151 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSettings));
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.textBoxFiles = new System.Windows.Forms.TextBox();
             this.panelSettingsPHP = new System.Windows.Forms.Panel();
-            this.labelPHPINIExample = new System.Windows.Forms.Label();
-            this.labelPHPINI = new System.Windows.Forms.Label();
-            this.textBoxPHPINIFile = new System.Windows.Forms.TextBox();
-            this.labelPHPAddress = new System.Windows.Forms.Label();
-            this.labelPHPFile = new System.Windows.Forms.Label();
-            this.labelPHPAddressExample = new System.Windows.Forms.Label();
-            this.textBoxPHPAddress = new System.Windows.Forms.TextBox();
-            this.labelPHPFileExample = new System.Windows.Forms.Label();
-            this.textBoxPHPFile = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.PHPSettingsSaveButton = new System.Windows.Forms.Button();
-            this.checkBoxPHPEnable = new System.Windows.Forms.CheckBox();
-            this.ExampleLabel2 = new System.Windows.Forms.Label();
-            this.NginxProcessLabel = new System.Windows.Forms.Label();
-            this.textBoxNginxFile = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxEnvironmentVariables = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkBoxAutoRun = new System.Windows.Forms.CheckBox();
+            this.textBoxArguments = new System.Windows.Forms.TextBox();
+            this.checkBoxNotify = new System.Windows.Forms.CheckBox();
+            this.checkBoxRestart = new System.Windows.Forms.CheckBox();
             this.panelSettingsPHP.SuspendLayout();
             this.SuspendLayout();
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(570, 284);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(111, 29);
+            this.buttonCancel.TabIndex = 22;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.SettingsCloseButton_Click);
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(440, 284);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(111, 29);
+            this.buttonSave.TabIndex = 21;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.SettingsSaveButton_Click);
+            // 
+            // textBoxFiles
+            // 
+            this.textBoxFiles.Location = new System.Drawing.Point(14, 33);
+            this.textBoxFiles.Multiline = true;
+            this.textBoxFiles.Name = "textBoxFiles";
+            this.textBoxFiles.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxFiles.Size = new System.Drawing.Size(319, 154);
+            this.textBoxFiles.TabIndex = 8;
+            this.textBoxFiles.WordWrap = false;
+            // 
             // panelSettingsPHP
             // 
-            this.panelSettingsPHP.Controls.Add(this.labelPHPINIExample);
-            this.panelSettingsPHP.Controls.Add(this.labelPHPINI);
-            this.panelSettingsPHP.Controls.Add(this.textBoxPHPINIFile);
-            this.panelSettingsPHP.Controls.Add(this.labelPHPAddress);
-            this.panelSettingsPHP.Controls.Add(this.labelPHPFile);
-            this.panelSettingsPHP.Controls.Add(this.labelPHPAddressExample);
-            this.panelSettingsPHP.Controls.Add(this.textBoxPHPAddress);
-            this.panelSettingsPHP.Controls.Add(this.labelPHPFileExample);
-            this.panelSettingsPHP.Controls.Add(this.textBoxPHPFile);
-            this.panelSettingsPHP.Location = new System.Drawing.Point(27, 122);
+            this.panelSettingsPHP.Controls.Add(this.label2);
+            this.panelSettingsPHP.Controls.Add(this.label1);
+            this.panelSettingsPHP.Controls.Add(this.textBoxArguments);
+            this.panelSettingsPHP.Controls.Add(this.textBoxFiles);
+            this.panelSettingsPHP.Location = new System.Drawing.Point(12, 84);
             this.panelSettingsPHP.Name = "panelSettingsPHP";
-            this.panelSettingsPHP.Size = new System.Drawing.Size(389, 152);
+            this.panelSettingsPHP.Size = new System.Drawing.Size(672, 190);
             this.panelSettingsPHP.TabIndex = 23;
             // 
-            // labelPHPINIExample
+            // label1
             // 
-            this.labelPHPINIExample.AutoSize = true;
-            this.labelPHPINIExample.Location = new System.Drawing.Point(117, 133);
-            this.labelPHPINIExample.Name = "labelPHPINIExample";
-            this.labelPHPINIExample.Size = new System.Drawing.Size(97, 13);
-            this.labelPHPINIExample.TabIndex = 28;
-            this.labelPHPINIExample.Text = "Например: c:\\php";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Запускаемый файл";
             // 
-            // labelPHPINI
+            // label2
             // 
-            this.labelPHPINI.AutoSize = true;
-            this.labelPHPINI.Location = new System.Drawing.Point(47, 113);
-            this.labelPHPINI.Name = "labelPHPINI";
-            this.labelPHPINI.Size = new System.Drawing.Size(71, 13);
-            this.labelPHPINI.TabIndex = 28;
-            this.labelPHPINI.Text = "php.ini папка";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(339, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Аргументы запуска";
             // 
-            // textBoxPHPINIFile
+            // textBoxEnvironmentVariables
             // 
-            this.textBoxPHPINIFile.Location = new System.Drawing.Point(120, 110);
-            this.textBoxPHPINIFile.Name = "textBoxPHPINIFile";
-            this.textBoxPHPINIFile.Size = new System.Drawing.Size(258, 20);
-            this.textBoxPHPINIFile.TabIndex = 27;
+            this.textBoxEnvironmentVariables.Location = new System.Drawing.Point(354, 31);
+            this.textBoxEnvironmentVariables.Multiline = true;
+            this.textBoxEnvironmentVariables.Name = "textBoxEnvironmentVariables";
+            this.textBoxEnvironmentVariables.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxEnvironmentVariables.Size = new System.Drawing.Size(327, 39);
+            this.textBoxEnvironmentVariables.TabIndex = 24;
             // 
-            // labelPHPAddress
+            // label3
             // 
-            this.labelPHPAddress.AutoSize = true;
-            this.labelPHPAddress.Location = new System.Drawing.Point(11, 65);
-            this.labelPHPAddress.Name = "labelPHPAddress";
-            this.labelPHPAddress.Size = new System.Drawing.Size(103, 13);
-            this.labelPHPAddress.TabIndex = 17;
-            this.labelPHPAddress.Text = "PHP FastCGI адрес";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(354, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(131, 13);
+            this.label3.TabIndex = 25;
+            this.label3.Text = "Переменные окружения";
             // 
-            // labelPHPFile
+            // checkBoxAutoRun
             // 
-            this.labelPHPFile.AutoSize = true;
-            this.labelPHPFile.Location = new System.Drawing.Point(15, 13);
-            this.labelPHPFile.Name = "labelPHPFile";
-            this.labelPHPFile.Size = new System.Drawing.Size(99, 13);
-            this.labelPHPFile.TabIndex = 16;
-            this.labelPHPFile.Text = "PHP FastCGI файл";
+            this.checkBoxAutoRun.AutoSize = true;
+            this.checkBoxAutoRun.Location = new System.Drawing.Point(29, 13);
+            this.checkBoxAutoRun.Name = "checkBoxAutoRun";
+            this.checkBoxAutoRun.Size = new System.Drawing.Size(156, 17);
+            this.checkBoxAutoRun.TabIndex = 26;
+            this.checkBoxAutoRun.Text = "Добавить в автозагрузку";
+            this.checkBoxAutoRun.UseVisualStyleBackColor = true;
             // 
-            // labelPHPAddressExample
+            // textBoxArguments
             // 
-            this.labelPHPAddressExample.AutoSize = true;
-            this.labelPHPAddressExample.Location = new System.Drawing.Point(117, 85);
-            this.labelPHPAddressExample.Name = "labelPHPAddressExample";
-            this.labelPHPAddressExample.Size = new System.Drawing.Size(137, 13);
-            this.labelPHPAddressExample.TabIndex = 15;
-            this.labelPHPAddressExample.Text = "Например: 127.0.0.1:9000";
+            this.textBoxArguments.Location = new System.Drawing.Point(339, 33);
+            this.textBoxArguments.Multiline = true;
+            this.textBoxArguments.Name = "textBoxArguments";
+            this.textBoxArguments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxArguments.Size = new System.Drawing.Size(330, 154);
+            this.textBoxArguments.TabIndex = 14;
+            this.textBoxArguments.WordWrap = false;
             // 
-            // textBoxPHPAddress
+            // checkBoxNotify
             // 
-            this.textBoxPHPAddress.Location = new System.Drawing.Point(120, 62);
-            this.textBoxPHPAddress.Name = "textBoxPHPAddress";
-            this.textBoxPHPAddress.Size = new System.Drawing.Size(258, 20);
-            this.textBoxPHPAddress.TabIndex = 14;
+            this.checkBoxNotify.AutoSize = true;
+            this.checkBoxNotify.Location = new System.Drawing.Point(29, 37);
+            this.checkBoxNotify.Name = "checkBoxNotify";
+            this.checkBoxNotify.Size = new System.Drawing.Size(211, 17);
+            this.checkBoxNotify.TabIndex = 27;
+            this.checkBoxNotify.Text = "Уведомлять о \"крушении\" процесса";
+            this.checkBoxNotify.UseVisualStyleBackColor = true;
             // 
-            // labelPHPFileExample
+            // checkBoxRestart
             // 
-            this.labelPHPFileExample.AutoSize = true;
-            this.labelPHPFileExample.Location = new System.Drawing.Point(117, 33);
-            this.labelPHPFileExample.Name = "labelPHPFileExample";
-            this.labelPHPFileExample.Size = new System.Drawing.Size(165, 13);
-            this.labelPHPFileExample.TabIndex = 12;
-            this.labelPHPFileExample.Text = "Например: \\..\\php5\\php-cgi.exe";
-            // 
-            // textBoxPHPFile
-            // 
-            this.textBoxPHPFile.Location = new System.Drawing.Point(120, 10);
-            this.textBoxPHPFile.Name = "textBoxPHPFile";
-            this.textBoxPHPFile.Size = new System.Drawing.Size(258, 20);
-            this.textBoxPHPFile.TabIndex = 8;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(294, 280);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 29);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Закрыть";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.SettingsCloseButton_Click);
-            // 
-            // PHPSettingsSaveButton
-            // 
-            this.PHPSettingsSaveButton.Location = new System.Drawing.Point(171, 280);
-            this.PHPSettingsSaveButton.Name = "PHPSettingsSaveButton";
-            this.PHPSettingsSaveButton.Size = new System.Drawing.Size(111, 29);
-            this.PHPSettingsSaveButton.TabIndex = 21;
-            this.PHPSettingsSaveButton.Text = "Сохранить";
-            this.PHPSettingsSaveButton.UseVisualStyleBackColor = true;
-            this.PHPSettingsSaveButton.Click += new System.EventHandler(this.SettingsSaveButton_Click);
-            // 
-            // checkBoxPHPEnable
-            // 
-            this.checkBoxPHPEnable.AutoSize = true;
-            this.checkBoxPHPEnable.Location = new System.Drawing.Point(33, 87);
-            this.checkBoxPHPEnable.Name = "checkBoxPHPEnable";
-            this.checkBoxPHPEnable.Size = new System.Drawing.Size(148, 17);
-            this.checkBoxPHPEnable.TabIndex = 20;
-            this.checkBoxPHPEnable.Text = "Разрешить PHP FastCGI";
-            this.checkBoxPHPEnable.UseVisualStyleBackColor = true;
-            this.checkBoxPHPEnable.CheckedChanged += new System.EventHandler(this.checkBoxPHPEnable_CheckedChanged_1);
-            // 
-            // ExampleLabel2
-            // 
-            this.ExampleLabel2.AutoSize = true;
-            this.ExampleLabel2.Location = new System.Drawing.Point(108, 51);
-            this.ExampleLabel2.Name = "ExampleLabel2";
-            this.ExampleLabel2.Size = new System.Drawing.Size(154, 13);
-            this.ExampleLabel2.TabIndex = 26;
-            this.ExampleLabel2.Text = "Например: c:\\nginx\\nginx.exe";
-            // 
-            // NginxProcessLabel
-            // 
-            this.NginxProcessLabel.AutoSize = true;
-            this.NginxProcessLabel.Location = new System.Drawing.Point(42, 31);
-            this.NginxProcessLabel.Name = "NginxProcessLabel";
-            this.NginxProcessLabel.Size = new System.Drawing.Size(63, 13);
-            this.NginxProcessLabel.TabIndex = 25;
-            this.NginxProcessLabel.Text = "Nginx файл";
-            // 
-            // textBoxNginxFile
-            // 
-            this.textBoxNginxFile.Location = new System.Drawing.Point(111, 28);
-            this.textBoxNginxFile.Name = "textBoxNginxFile";
-            this.textBoxNginxFile.Size = new System.Drawing.Size(294, 20);
-            this.textBoxNginxFile.TabIndex = 24;
+            this.checkBoxRestart.AutoSize = true;
+            this.checkBoxRestart.Location = new System.Drawing.Point(29, 61);
+            this.checkBoxRestart.Name = "checkBoxRestart";
+            this.checkBoxRestart.Size = new System.Drawing.Size(269, 17);
+            this.checkBoxRestart.TabIndex = 28;
+            this.checkBoxRestart.Text = "Рестартовать сервер при \"крушении\" процесса";
+            this.checkBoxRestart.UseVisualStyleBackColor = true;
             // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 325);
-            this.Controls.Add(this.ExampleLabel2);
-            this.Controls.Add(this.NginxProcessLabel);
-            this.Controls.Add(this.textBoxNginxFile);
+            this.ClientSize = new System.Drawing.Size(713, 325);
+            this.Controls.Add(this.checkBoxRestart);
+            this.Controls.Add(this.checkBoxNotify);
+            this.Controls.Add(this.checkBoxAutoRun);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textBoxEnvironmentVariables);
             this.Controls.Add(this.panelSettingsPHP);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.PHPSettingsSaveButton);
-            this.Controls.Add(this.checkBoxPHPEnable);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonSave);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSettings";
             this.Text = "Настройки";
@@ -219,22 +186,18 @@
 
         #endregion
 
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.TextBox textBoxFiles;
         private System.Windows.Forms.Panel panelSettingsPHP;
-        private System.Windows.Forms.Label labelPHPAddressExample;
-        private System.Windows.Forms.TextBox textBoxPHPAddress;
-        private System.Windows.Forms.Label labelPHPFileExample;
-        private System.Windows.Forms.TextBox textBoxPHPFile;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button PHPSettingsSaveButton;
-        private System.Windows.Forms.CheckBox checkBoxPHPEnable;
-        private System.Windows.Forms.Label ExampleLabel2;
-        private System.Windows.Forms.Label NginxProcessLabel;
-        private System.Windows.Forms.TextBox textBoxNginxFile;
-        private System.Windows.Forms.Label labelPHPFile;
-        private System.Windows.Forms.Label labelPHPAddress;
-        private System.Windows.Forms.Label labelPHPINI;
-        private System.Windows.Forms.TextBox textBoxPHPINIFile;
-        private System.Windows.Forms.Label labelPHPINIExample;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxEnvironmentVariables;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBoxAutoRun;
+        private System.Windows.Forms.TextBox textBoxArguments;
+        private System.Windows.Forms.CheckBox checkBoxNotify;
+        private System.Windows.Forms.CheckBox checkBoxRestart;
 
 
     }

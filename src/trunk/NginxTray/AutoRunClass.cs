@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Win32;
 using System.Windows.Forms;
+using System.IO;
+using IWshRuntimeLibrary;
+using System.Reflection;
 
 namespace NginxTray
 {
@@ -10,10 +13,35 @@ namespace NginxTray
     // This is a hepler-class for add/remove the program to the Auto Run (starting with Windows)
     public class AutoRun
     {
+        public string appLink;
+        public string autoRunPath;
+        public string appName;
+        public string appPath;
+
         public AutoRun()
         {
-            //this.appName = System.AppDomain.CurrentDomain.FriendlyName;
-            this.appName = "NginxTray";
+            // including IWshRuntimeLibrary.dll in the .exe-project
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                string resourceName = new AssemblyName(args.Name).Name + ".dll";
+                string resource = Array.Find(this.GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+                {
+                    Byte[] assemblyData = new Byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
+
+            
+
+            this.appLink = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            this.autoRunPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+            this.appName = Path.GetFileNameWithoutExtension(this.appLink);
+            this.appPath = Path.GetDirectoryName(appLink);
+
+            IWshRuntimeLibrary.FileSystemObject a = new IWshRuntimeLibrary.FileSystemObject();
         }
 
 
@@ -51,6 +79,49 @@ namespace NginxTray
                 return true;
         }
 
-        public string appName;
+
+
+        // Add the application's shortcut to AutoRun folder
+        // http://www.sorrowman.org/c-sharp-programmer/url-link-to-desktop.html
+        public void addAppShortcutToAutoRunFolder()
+        {
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(this.autoRunPath + @"\" + this.appName + ".lnk");
+            shortcut.Description = "";
+            shortcut.Hotkey = "";
+            shortcut.TargetPath = this.appLink;
+            shortcut.Save();
+        }
+
+
+
+        // Remove the application's shortcut in AutoRun folder
+        public void removeAppShortcutToAutoRunFolder()
+        {
+            System.IO.File.Delete(this.autoRunPath + @"\" + this.appName + ".lnk");
+        }
+
+        // Add/Remove the application's shortcut in AutoRun folder
+        public void appShortcutToAutoRunFolder(bool value)
+        {
+            if (value) {
+                this.addAppShortcutToAutoRunFolder();
+            } else {
+                this.removeAppShortcutToAutoRunFolder();
+            }
+        }
+
+        // is set the auto run
+        public bool isAutoRun()
+        {
+            return System.IO.File.Exists(this.autoRunPath + @"\" + this.appName + ".lnk");
+        }
+
+        // for init included IWshRuntimeLibrary.dll
+        private void foo()
+        {
+            IWshRuntimeLibrary.FileSystemObject a = new IWshRuntimeLibrary.FileSystemObject();
+        }
+
     }
 }

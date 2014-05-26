@@ -2,20 +2,22 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NginxTray.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="NginxFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">nginx.exe</Value>
+    <Setting Name="Files" Type="System.String" Scope="User">
+      <Value Profile="(Default)">nginx.exe
+..\php-5.3.28-Win32-VC9-x86\php-cgi.exe</Value>
     </Setting>
-    <Setting Name="PHPEnable" Type="System.Boolean" Scope="User">
+    <Setting Name="Arguments" Type="System.String" Scope="User">
+      <Value Profile="(Default)">
+-b 127.0.0.1:9000</Value>
+    </Setting>
+    <Setting Name="EnvironmentVariables" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PHP_FCGI_MAX_REQUESTS=0</Value>
+    </Setting>
+    <Setting Name="Notify" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Restart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="PHPFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..\php-5.3.28-Win32-VC9-x86\php-cgi.exe</Value>
-    </Setting>
-    <Setting Name="PHPAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">127.0.0.1:9000</Value>
-    </Setting>
-    <Setting Name="PHPINIFile" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..\php-5.3.28-Win32-VC9-x86</Value>
     </Setting>
   </Settings>
 </SettingsFile>

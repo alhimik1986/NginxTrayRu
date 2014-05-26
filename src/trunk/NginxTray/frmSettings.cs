@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace NginxTray
 {
@@ -14,33 +15,29 @@ namespace NginxTray
         {
             InitializeComponent();
 
-            textBoxNginxFile.Text = Properties.Settings.Default.NginxFile;
+            textBoxFiles.Text                = Properties.Settings.Default.Files;
+            textBoxArguments.Text            = Properties.Settings.Default.Arguments;
+            textBoxEnvironmentVariables.Text = Properties.Settings.Default.EnvironmentVariables;
+            checkBoxNotify.Checked           = Properties.Settings.Default.Notify;
+            checkBoxRestart.Checked          = Properties.Settings.Default.Restart;
 
-            checkBoxPHPEnable.Checked = Properties.Settings.Default.PHPEnable;
+            AutoRun autoRun = new AutoRun();
+            checkBoxAutoRun.Checked = autoRun.isAutoRun();
 
-            panelSettingsPHP.Enabled = checkBoxPHPEnable.Checked;
-
-            textBoxPHPFile.Text = Properties.Settings.Default.PHPFile;
-
-            textBoxPHPINIFile.Text = Properties.Settings.Default.PHPINIFile;
-
-            textBoxPHPAddress.Text = Properties.Settings.Default.PHPAddress;
         }
 
         //Save Settings textbox in settings variables
         private void SettingsSaveButton_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.NginxFile = textBoxNginxFile.Text;
-
-            Properties.Settings.Default.PHPEnable = checkBoxPHPEnable.Checked;
-
-            Properties.Settings.Default.PHPFile = textBoxPHPFile.Text;
-
-            Properties.Settings.Default.PHPINIFile = textBoxPHPINIFile.Text;
-
-            Properties.Settings.Default.PHPAddress = textBoxPHPAddress.Text;
-
+            Properties.Settings.Default.Files                = textBoxFiles.Text;
+            Properties.Settings.Default.Arguments            = textBoxArguments.Text;
+            Properties.Settings.Default.EnvironmentVariables = textBoxEnvironmentVariables.Text;
+            Properties.Settings.Default.Notify               = checkBoxNotify.Checked;
+            Properties.Settings.Default.Restart              = checkBoxRestart.Checked;
             Properties.Settings.Default.Save();
+
+            AutoRun autoRun = new AutoRun();
+            autoRun.appShortcutToAutoRunFolder(checkBoxAutoRun.Checked);
 
             this.Close();
 
@@ -50,12 +47,6 @@ namespace NginxTray
         private void SettingsCloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        // Enable and disable the PHP Settings panel
-        private void checkBoxPHPEnable_CheckedChanged_1(object sender, EventArgs e)
-        {
-            panelSettingsPHP.Enabled = checkBoxPHPEnable.Checked;
         }
 
     }
