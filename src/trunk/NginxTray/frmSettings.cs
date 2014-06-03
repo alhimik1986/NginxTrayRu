@@ -39,6 +39,15 @@ namespace NginxTray
             AutoRun autoRun = new AutoRun();
             autoRun.appShortcutToAutoRunFolder(checkBoxAutoRun.Checked);
 
+            // Save Settings in the NginxTrayRu.settings.xml file
+            XMLSettingsManager xml = new XMLSettingsManager();
+            xml.Files                = Properties.Settings.Default.Files;
+            xml.Arguments            = Properties.Settings.Default.Arguments;
+            xml.EnvironmentVariables = Properties.Settings.Default.EnvironmentVariables;
+            xml.Notify               = Properties.Settings.Default.Notify;
+            xml.Restart              = Properties.Settings.Default.Restart;
+            XMLSettingsManager.Serialize(autoRun.appName + ".settings.xml", xml);
+
             this.Close();
 
         }

@@ -43,6 +43,18 @@ namespace NginxTray
         private void frmStartup_Load(object sender, EventArgs e)
         {
             AutoRun autoRun = new AutoRun();
+
+            if (System.IO.File.Exists(autoRun.appName + ".settings.xml"))
+            {
+                // Read the configuration object from a file and write it to the Properties.Settings.Default (if it exists!)
+                XMLSettingsManager xml = XMLSettingsManager.Deserialize(autoRun.appName + ".settings.xml");
+                Properties.Settings.Default.Files                = xml.Files.Replace("\n", "\r\n");
+                Properties.Settings.Default.Arguments = xml.Arguments.Replace("\n", "\r\n");
+                Properties.Settings.Default.EnvironmentVariables = xml.EnvironmentVariables.Replace("\n", "\r\n");
+                Properties.Settings.Default.Notify               = xml.Notify;
+                Properties.Settings.Default.Restart              = xml.Restart;
+            }
+
             this.MenuItemStart_Click1();
         }
 
@@ -184,6 +196,7 @@ namespace NginxTray
         {
             IWshRuntimeLibrary.FileSystemObject a = new IWshRuntimeLibrary.FileSystemObject();
         }
+
     }
 
 }

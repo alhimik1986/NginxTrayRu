@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoRunClass.cs" />
+    <Compile Include="XMLSettingsManagerClass.cs" />
     <Compile Include="frmStartup.cs">
       <SubType>Form</SubType>
     </Compile>

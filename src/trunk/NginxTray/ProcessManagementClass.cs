@@ -6,16 +6,17 @@ using System.IO;
 using System.Windows.Forms;
 using System.Collections.Specialized;
 using System.Collections;
+using System.Configuration;
 
 namespace NginxTray
 {
     public class ProcessManagement
     {
-        // the index of string in textBoxFiles
+        // the index of string in textBoxFiles to define the failed process
         public int ProcessIndex;
 
         //Start a new process
-        public bool StartProcess(string process, string arguments, string[] s_envs)
+        public int StartProcess(string process, string arguments, string[] s_envs)
         {
             Process Proc = new Process();
 
@@ -37,10 +38,10 @@ namespace NginxTray
             }
             catch
             {
-                return false;
+                return 0;
             }
 
-            return true;
+            return Proc.Id;
         }
 
         //Stop a process
@@ -62,6 +63,7 @@ namespace NginxTray
             string[] files = Properties.Settings.Default.Files.Split(                new string[] { System.Environment.NewLine }, StringSplitOptions.None);
             string[] args  = Properties.Settings.Default.Arguments.Split(            new string[] { System.Environment.NewLine }, StringSplitOptions.None);
             string[] envs  = Properties.Settings.Default.EnvironmentVariables.Split (new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string[] pids = new string[files.Length];
             
             string file; string arg;
 
@@ -72,7 +74,9 @@ namespace NginxTray
                 if (file.Length == 0) continue;
                 try
                 {
-                    if ( ! this.StartProcess(file, arg, envs))
+                    pids[i] = this.StartProcess(file, arg, envs).ToString();
+
+                    if (pids[i] == "0")
                     {
                         this.ProcessIndex = i+1;
                         return false;
@@ -84,6 +88,8 @@ namespace NginxTray
                     return false;
                 }
             }
+
+            Properties.Settings.Default.pids = String.Join(",", pids);
 
             return true;
         }
@@ -110,6 +116,7 @@ namespace NginxTray
             foreach (string file in files) {
                 this.StopProcess(file);
             }
+            Properties.Settings.Default.pids = "";
         }
 
 
@@ -117,17 +124,20 @@ namespace NginxTray
         public string checkProcessesExists()
         {
             string[] files = Properties.Settings.Default.Files.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            string process; Process[] processgroup;
-            foreach (string file in files)
+            string processName; Process process;
+            string[] pids = Properties.Settings.Default.pids.Split(',');
+            int i;
+
+            for (i = 0; i < files.Length; i++ )
             {
-                process = Path.GetFileNameWithoutExtension(file);
-                processgroup = Process.GetProcessesByName(process);
-                if (processgroup == null || processgroup.Length == 0)
-                {
-                    return process;
+                processName = Path.GetFileNameWithoutExtension(files[i]);
+                try {
+                    process = Process.GetProcessById(Convert.ToInt32(pids[i]));
+                } catch {
+                    return processName+" (PID="+pids[i]+")";
                 }
             }
-
+            
             return "";
         }
         
