@@ -17,6 +17,7 @@ namespace NginxTray
         public string autoRunPath;
         public string appName;
         public string appPath;
+        public string workingDirectory;
 
         public AutoRun()
         {
@@ -37,6 +38,7 @@ namespace NginxTray
             
 
             this.appLink = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            this.workingDirectory = Path.GetDirectoryName(Application.ExecutablePath);
             this.autoRunPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
             this.appName = Path.GetFileNameWithoutExtension(this.appLink);
             this.appPath = Path.GetDirectoryName(appLink);
@@ -90,6 +92,7 @@ namespace NginxTray
             shortcut.Description = "";
             shortcut.Hotkey = "";
             shortcut.TargetPath = this.appLink;
+            shortcut.WorkingDirectory = this.workingDirectory;
             shortcut.Save();
         }
 

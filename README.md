@@ -1,7 +1,7 @@
-Nginx Tray Ru
+NginxTrayRu
 =============
 
-Nginx Tray Ru - это улучшенный (по сравнению с NginxTray) трей, такой же как у apache, только он для веб-сервера nginx.
+NginxTrayRu - это трей, такой же как у apache, только он для веб-сервера nginx.
 
 NginxTrayRu очень универсален.<br>
 Им также можно запускать apache и mysql, в общем, что угодно.<br>
