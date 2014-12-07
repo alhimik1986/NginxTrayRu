@@ -70,12 +70,12 @@ namespace NginxTray
         public void MenuItemStart_Click1()
         {
             this.processList = new ProcessManagement();
+            this.MenuItemStart.Enabled = false;
+            this.MenuItemStop.Enabled = true;
+
             if (this.processList.start()) // Call function to start Nginx
             {
-                this.MenuItemStart.Enabled = false;
-                this.MenuItemStop.Enabled = true;
                 this.showIcon(startIcon);
-
                 timer1.Enabled = true;
                 return;
             }

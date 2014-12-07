@@ -56,11 +56,14 @@ namespace NginxTray
 
         public void stop()
         {
-            if (this.pids == null)
+            if (this.pids != null)
             {
                 foreach (int pid in this.pids)
                 {
-                    this.KillProcessAndChildren(pid);
+                    if (pid != 0)
+                    {
+                        this.KillProcessAndChildren(pid);
+                    }
                 }
             }
         }
@@ -153,7 +156,7 @@ namespace NginxTray
             {
                 processName = Path.GetFileNameWithoutExtension(files[i]);
 
-                if (i > this.pids.Length)
+                if (i > this.pids.Length - 1)
                     return processName;
 
                 try {
