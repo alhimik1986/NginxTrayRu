@@ -82,17 +82,5 @@ namespace NginxTray.Properties {
                 this["Restart"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string pids {
-            get {
-                return ((string)(this["pids"]));
-            }
-            set {
-                this["pids"] = value;
-            }
-        }
     }
 }

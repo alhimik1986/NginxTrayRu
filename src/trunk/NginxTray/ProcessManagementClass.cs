@@ -7,15 +7,70 @@ using System.Windows.Forms;
 using System.Collections.Specialized;
 using System.Collections;
 using System.Configuration;
+using System.Management;
 
 namespace NginxTray
 {
     public class ProcessManagement
     {
-        // the index of string in textBoxFiles to define the failed process
+        // the number of string (starts from 0) in textBoxFiles to define the failed process
         public int ProcessIndex;
+        // ID list of running processes.
+        public int[] pids;
 
-        //Start a new process
+
+        public bool start()
+        {
+            string[] files = Properties.Settings.Default.Files.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string[] args = Properties.Settings.Default.Arguments.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string[] envs = Properties.Settings.Default.EnvironmentVariables.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            this.pids = new int[files.Length];
+
+            string file; string arg;
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                file = files.Length >= i + 1 ? files[i] : "";
+                arg = args.Length >= i + 1 ? args[i] : "";
+                if (file.Length == 0) continue;
+                try
+                {
+                    this.pids[i] = this.StartProcess(file, arg, envs);
+
+                    if (this.pids[i] == 0)
+                    {
+                        this.ProcessIndex = i + 1;
+                        return false;
+                    }
+                }
+                catch
+                {
+                    this.ProcessIndex = i + 1;
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+
+        public void stop()
+        {
+            if (this.pids == null)
+            {
+                foreach (int pid in this.pids)
+                {
+                    this.KillProcessAndChildren(pid);
+                }
+            }
+        }
+
+
+        /// <summary>Start a new process.</summary>
+        /// <param name="process">Path to file, which should run.</param>
+        /// <param name="arguments"> Arguments.</param>
+        /// <param name="s_envs"> Envelope variable list (format: "var_name=var_value").</param>
+        /// <returns>Process ID or 0 if fail.</returns>
         public int StartProcess(string process, string arguments, string[] s_envs)
         {
             Process Proc = new Process();
@@ -32,75 +87,52 @@ namespace NginxTray
             Proc.StartInfo.CreateNoWindow = true; //Set no display windows
             Proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Set no display any window
             
-            try
-            {
+            try {
                 Proc.Start();
-            }
-            catch
-            {
+            } catch {
                 return 0;
             }
 
             return Proc.Id;
         }
 
-        //Stop a process
-        public void StopProcess(string process)
+
+        /// <summary>Kill a process, and all of its children, grandchildren, etc.</summary>
+        /// <param name="pid">Process ID.</param>
+        public void KillProcessAndChildren(int pid)
         {
-            process = Path.GetFileNameWithoutExtension(process);
-
-            Process[] processgroup = Process.GetProcessesByName(process); // Select processes with that name
-
-            foreach (Process Proc in processgroup)
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher
+              ("Select * From Win32_Process Where ParentProcessID=" + pid);
+            ManagementObjectCollection moc = searcher.Get();
+            foreach (ManagementObject mo in moc)
             {
-                Proc.Kill(); // Stop each process with that name
+                KillProcessAndChildren(Convert.ToInt32(mo["ProcessID"]));
             }
-
-        }
-
-        public bool start()
-        {
-            string[] files = Properties.Settings.Default.Files.Split(                new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            string[] args  = Properties.Settings.Default.Arguments.Split(            new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            string[] envs  = Properties.Settings.Default.EnvironmentVariables.Split (new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            string[] pids = new string[files.Length];
-            
-            string file; string arg;
-
-            for (int i = 0; i < files.Length; i++)
+            try
             {
-                file = files.Length >= i+1 ? files[i] : "";
-                arg  = args.Length  >= i+1 ? args[i]  : "";
-                if (file.Length == 0) continue;
-                try
-                {
-                    pids[i] = this.StartProcess(file, arg, envs).ToString();
-
-                    if (pids[i] == "0")
-                    {
-                        this.ProcessIndex = i+1;
-                        return false;
-                    }
-                }
-                catch
-                {
-                    this.ProcessIndex = i+1;
-                    return false;
-                }
+                Process proc = Process.GetProcessById(pid);
+                proc.Kill();
             }
-
-            Properties.Settings.Default.pids = String.Join(",", pids);
-
-            return true;
+            catch (ArgumentException)
+            {
+                // Process already exited.
+            }
         }
 
 
-        // parse the env. vars from string with "=" to assoc array
-        public OrderedDictionary parseEnv(string[] strings)
+        /// <summary>
+        /// parse the env. vars from string with "=" to assoc array
+        /// </summary>
+        /// <param name="envs">List of name and value of envelope variable.
+        /// Format("var_name=var_value")</param>
+        /// <returns>associative array of names and values</returns>
+ 
+        public OrderedDictionary parseEnv(string[] envs)
         {
             OrderedDictionary result = new OrderedDictionary();
             string[] keyAndValue;
-            foreach (string str in strings) {
+            foreach (string str in envs)
+            {
                 keyAndValue = str.Split(new string[] { "=" }, StringSplitOptions.None);
                 if (keyAndValue.Length == 2) {
                     result[keyAndValue[0]] = keyAndValue[1];
@@ -110,31 +142,24 @@ namespace NginxTray
         }
 
 
-        public void stop()
-        {
-            string[] files = Properties.Settings.Default.Files.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
-            foreach (string file in files) {
-                this.StopProcess(file);
-            }
-            Properties.Settings.Default.pids = "";
-        }
-
-
         // checking existing of all processes
         public string checkProcessesExists()
         {
             string[] files = Properties.Settings.Default.Files.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
             string processName; Process process;
-            string[] pids = Properties.Settings.Default.pids.Split(',');
             int i;
 
-            for (i = 0; i < files.Length; i++ )
+            for (i = 0; i < files.Length; i++)
             {
                 processName = Path.GetFileNameWithoutExtension(files[i]);
+
+                if (i > this.pids.Length)
+                    return processName;
+
                 try {
-                    process = Process.GetProcessById(Convert.ToInt32(pids[i]));
+                    process = Process.GetProcessById(Convert.ToInt32(this.pids[i]));
                 } catch {
-                    return processName+" (PID="+pids[i]+")";
+                    return processName+" (PID="+this.pids[i]+")";
                 }
             }
             

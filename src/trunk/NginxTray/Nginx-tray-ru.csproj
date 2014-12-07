@@ -65,11 +65,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoRunClass.cs" />
+    <Compile Include="ManagementObjectSearcher.cs" />
     <Compile Include="XMLSettingsManagerClass.cs" />
     <Compile Include="frmStartup.cs">
       <SubType>Form</SubType>

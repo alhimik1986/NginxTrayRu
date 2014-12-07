@@ -15,6 +15,9 @@ namespace NginxTray
 {
     public partial class frmStartup : Form
     {
+        // Process object for 
+        protected ProcessManagement processList;
+
         // Constructor
         public frmStartup()
         {
@@ -66,8 +69,8 @@ namespace NginxTray
 
         public void MenuItemStart_Click1()
         {
-            ProcessManagement pm = new ProcessManagement();
-            if (pm.start()) // Call function to start Nginx
+            this.processList = new ProcessManagement();
+            if (this.processList.start()) // Call function to start Nginx
             {
                 this.MenuItemStart.Enabled = false;
                 this.MenuItemStop.Enabled = true;
@@ -79,7 +82,7 @@ namespace NginxTray
             else
             {
                 this.showIcon(errorIcon);
-                errorIcon.ShowBalloonTip(1000, "Ошибка в командной строке", "Не удалось запустить " + pm.ProcessIndex + "-й процесс", ToolTipIcon.Error);
+                errorIcon.ShowBalloonTip(1000, "Ошибка в командной строке", "Не удалось запустить " + this.processList.ProcessIndex + "-й процесс", ToolTipIcon.Error);
             }
         }
 
@@ -91,8 +94,8 @@ namespace NginxTray
 
         private void MenuItemStop_Click1()
         {
-            ProcessManagement pm = new ProcessManagement();
-            pm.stop();
+            //this.processList = new ProcessManagement();
+            this.processList.stop();
 
             this.MenuItemStart.Enabled = true;
             this.MenuItemStop.Enabled = false;
@@ -109,7 +112,6 @@ namespace NginxTray
 
         private void MenuItemRestart_Click1()
         {
-            ProcessManagement pm = new ProcessManagement();
             this.MenuItemStop_Click1();
             Thread.Sleep(500);
             this.MenuItemStart_Click1();
@@ -125,8 +127,7 @@ namespace NginxTray
         // Exit NginxTray
         private void MenuItemExit_Click(object sender, EventArgs e)
         {
-            ProcessManagement pm = new ProcessManagement();
-            pm.stop();
+            this.processList.stop();
 
             Application.Exit();
         }
@@ -151,8 +152,7 @@ namespace NginxTray
         // Periodically check all processes is launced.
         private void timer1_Tick(object sender, EventArgs e)
         {
-            ProcessManagement p = new ProcessManagement();
-            string process = p.checkProcessesExists();
+            string process = this.processList.checkProcessesExists();
 
             if (process.Length != 0)
             {
