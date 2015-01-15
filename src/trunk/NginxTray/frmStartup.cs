@@ -94,14 +94,13 @@ namespace NginxTray
 
         private void MenuItemStop_Click1()
         {
+            timer1.Enabled = false;
             //this.processList = new ProcessManagement();
             this.processList.stop();
 
             this.MenuItemStart.Enabled = true;
             this.MenuItemStop.Enabled = false;
             this.showIcon(stopIcon);
-
-            timer1.Enabled = false;
         }
 
         // Restart Nginx Group
