@@ -126,8 +126,7 @@ namespace NginxTray
         // Exit NginxTray
         private void MenuItemExit_Click(object sender, EventArgs e)
         {
-            this.processList.stop();
-
+            this.MenuItemStop_Click1();
             Application.Exit();
         }
 
