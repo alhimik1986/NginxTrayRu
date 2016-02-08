@@ -82,5 +82,29 @@ namespace NginxTray.Properties {
                 this["Restart"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("nginx.exe")]
+        public string FilesTerminate {
+            get {
+                return ((string)(this["FilesTerminate"]));
+            }
+            set {
+                this["FilesTerminate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-s stop")]
+        public string ArgumentsTerminate {
+            get {
+                return ((string)(this["ArgumentsTerminate"]));
+            }
+            set {
+                this["ArgumentsTerminate"] = value;
+            }
+        }
     }
 }
