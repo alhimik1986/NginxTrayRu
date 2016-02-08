@@ -19,5 +19,11 @@
     <Setting Name="Restart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="FilesTerminate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">nginx.exe</Value>
+    </Setting>
+    <Setting Name="ArgumentsTerminate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-s stop</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

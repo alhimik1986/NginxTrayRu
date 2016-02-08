@@ -56,6 +56,9 @@ namespace NginxTray
 
         public void stop()
         {
+            // First I terminate all programs correctly
+            this.terminateProgramms();
+            // Then I close remaining programs by force
             if (this.pids != null)
             {
                 foreach (int pid in this.pids)
@@ -64,6 +67,28 @@ namespace NginxTray
                     {
                         this.KillProcessAndChildren(pid);
                     }
+                }
+            }
+        }
+        public void terminateProgramms()
+        {
+            string[] files = Properties.Settings.Default.FilesTerminate.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string[] args = Properties.Settings.Default.ArgumentsTerminate.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string[] envs = Properties.Settings.Default.EnvironmentVariables.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None);
+            string file; string arg;
+            
+            for (int i = 0; i < files.Length; i++)
+            {
+                file = files.Length >= i + 1 ? files[i] : "";
+                arg = args.Length >= i + 1 ? args[i] : "";
+                if (file.Length == 0) continue;
+                try
+                {
+                    this.StartProcess(file, arg, envs);
+                }
+                catch
+                {
+
                 }
             }
         }

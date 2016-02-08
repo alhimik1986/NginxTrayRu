@@ -23,6 +23,8 @@ namespace NginxTray
       string _EnvironmentVariables;
       bool _Notify;
       bool _Restart;
+      string _FilesTerminate;
+      string _ArgumentsTerminate;
 
       public XMLSettingsManager()
       {
@@ -31,6 +33,8 @@ namespace NginxTray
           _EnvironmentVariables = "";
           _Notify = false;
           _Restart = false;
+          _FilesTerminate = "";
+          _ArgumentsTerminate = "";
       }
       public static void Serialize(string file, XMLSettingsManager c)
       {
@@ -80,6 +84,18 @@ namespace NginxTray
       {
           get { return _Restart; }
           set { _Restart = value; }
+      }
+
+      public string FilesTerminate
+      {
+          get { return _FilesTerminate; }
+          set { _FilesTerminate = value; }
+      }
+
+      public string ArgumentsTerminate
+      {
+          get { return _ArgumentsTerminate; }
+          set { _ArgumentsTerminate = value; }
       }
 
 

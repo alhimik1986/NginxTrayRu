@@ -20,6 +20,8 @@ namespace NginxTray
             textBoxEnvironmentVariables.Text = Properties.Settings.Default.EnvironmentVariables;
             checkBoxNotify.Checked           = Properties.Settings.Default.Notify;
             checkBoxRestart.Checked          = Properties.Settings.Default.Restart;
+            textBoxFilesTerminate.Text       = Properties.Settings.Default.FilesTerminate;
+            textBoxArgumentsTerminate.Text   = Properties.Settings.Default.ArgumentsTerminate;
 
             AutoRun autoRun = new AutoRun();
             checkBoxAutoRun.Checked = autoRun.isAutoRun();
@@ -34,6 +36,8 @@ namespace NginxTray
             Properties.Settings.Default.EnvironmentVariables = textBoxEnvironmentVariables.Text;
             Properties.Settings.Default.Notify               = checkBoxNotify.Checked;
             Properties.Settings.Default.Restart              = checkBoxRestart.Checked;
+            Properties.Settings.Default.FilesTerminate       = textBoxFilesTerminate.Text;
+            Properties.Settings.Default.ArgumentsTerminate   = textBoxArgumentsTerminate.Text;
             Properties.Settings.Default.Save();
 
             AutoRun autoRun = new AutoRun();
@@ -46,6 +50,8 @@ namespace NginxTray
             xml.EnvironmentVariables = Properties.Settings.Default.EnvironmentVariables;
             xml.Notify               = Properties.Settings.Default.Notify;
             xml.Restart              = Properties.Settings.Default.Restart;
+            xml.FilesTerminate       = Properties.Settings.Default.FilesTerminate;
+            xml.ArgumentsTerminate   = Properties.Settings.Default.ArgumentsTerminate;
             XMLSettingsManager.Serialize(autoRun.appName + ".settings.xml", xml);
 
             this.Close();

@@ -33,12 +33,15 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.textBoxFiles = new System.Windows.Forms.TextBox();
             this.panelSettingsPHP = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxArgumentsTerminate = new System.Windows.Forms.TextBox();
+            this.textBoxFilesTerminate = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxArguments = new System.Windows.Forms.TextBox();
             this.textBoxEnvironmentVariables = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxAutoRun = new System.Windows.Forms.CheckBox();
-            this.textBoxArguments = new System.Windows.Forms.TextBox();
             this.checkBoxNotify = new System.Windows.Forms.CheckBox();
             this.checkBoxRestart = new System.Windows.Forms.CheckBox();
             this.panelSettingsPHP.SuspendLayout();
@@ -46,7 +49,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(570, 284);
+            this.buttonCancel.Location = new System.Drawing.Point(570, 343);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(111, 29);
             this.buttonCancel.TabIndex = 22;
@@ -56,7 +59,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(440, 284);
+            this.buttonSave.Location = new System.Drawing.Point(440, 343);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(111, 29);
             this.buttonSave.TabIndex = 21;
@@ -70,20 +73,61 @@
             this.textBoxFiles.Multiline = true;
             this.textBoxFiles.Name = "textBoxFiles";
             this.textBoxFiles.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxFiles.Size = new System.Drawing.Size(319, 154);
+            this.textBoxFiles.Size = new System.Drawing.Size(319, 88);
             this.textBoxFiles.TabIndex = 8;
             this.textBoxFiles.WordWrap = false;
             // 
             // panelSettingsPHP
             // 
+            this.panelSettingsPHP.Controls.Add(this.label4);
+            this.panelSettingsPHP.Controls.Add(this.textBoxArgumentsTerminate);
+            this.panelSettingsPHP.Controls.Add(this.textBoxFilesTerminate);
             this.panelSettingsPHP.Controls.Add(this.label2);
             this.panelSettingsPHP.Controls.Add(this.label1);
             this.panelSettingsPHP.Controls.Add(this.textBoxArguments);
             this.panelSettingsPHP.Controls.Add(this.textBoxFiles);
             this.panelSettingsPHP.Location = new System.Drawing.Point(12, 84);
             this.panelSettingsPHP.Name = "panelSettingsPHP";
-            this.panelSettingsPHP.Size = new System.Drawing.Size(672, 190);
+            this.panelSettingsPHP.Size = new System.Drawing.Size(669, 241);
             this.panelSettingsPHP.TabIndex = 23;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 127);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(223, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Команды для завершения всех процессов";
+            // 
+            // textBoxArgumentsTerminate
+            // 
+            this.textBoxArgumentsTerminate.Location = new System.Drawing.Point(339, 148);
+            this.textBoxArgumentsTerminate.Multiline = true;
+            this.textBoxArgumentsTerminate.Name = "textBoxArgumentsTerminate";
+            this.textBoxArgumentsTerminate.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxArgumentsTerminate.Size = new System.Drawing.Size(330, 88);
+            this.textBoxArgumentsTerminate.TabIndex = 18;
+            this.textBoxArgumentsTerminate.WordWrap = false;
+            // 
+            // textBoxFilesTerminate
+            // 
+            this.textBoxFilesTerminate.Location = new System.Drawing.Point(14, 148);
+            this.textBoxFilesTerminate.Multiline = true;
+            this.textBoxFilesTerminate.Name = "textBoxFilesTerminate";
+            this.textBoxFilesTerminate.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxFilesTerminate.Size = new System.Drawing.Size(319, 88);
+            this.textBoxFilesTerminate.TabIndex = 17;
+            this.textBoxFilesTerminate.WordWrap = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(339, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Аргументы запуска";
             // 
             // label1
             // 
@@ -94,14 +138,15 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Запускаемый файл";
             // 
-            // label2
+            // textBoxArguments
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(339, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Аргументы запуска";
+            this.textBoxArguments.Location = new System.Drawing.Point(339, 33);
+            this.textBoxArguments.Multiline = true;
+            this.textBoxArguments.Name = "textBoxArguments";
+            this.textBoxArguments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxArguments.Size = new System.Drawing.Size(330, 88);
+            this.textBoxArguments.TabIndex = 14;
+            this.textBoxArguments.WordWrap = false;
             // 
             // textBoxEnvironmentVariables
             // 
@@ -131,16 +176,6 @@
             this.checkBoxAutoRun.Text = "Добавить в автозагрузку";
             this.checkBoxAutoRun.UseVisualStyleBackColor = true;
             // 
-            // textBoxArguments
-            // 
-            this.textBoxArguments.Location = new System.Drawing.Point(339, 33);
-            this.textBoxArguments.Multiline = true;
-            this.textBoxArguments.Name = "textBoxArguments";
-            this.textBoxArguments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxArguments.Size = new System.Drawing.Size(330, 154);
-            this.textBoxArguments.TabIndex = 14;
-            this.textBoxArguments.WordWrap = false;
-            // 
             // checkBoxNotify
             // 
             this.checkBoxNotify.AutoSize = true;
@@ -165,7 +200,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(713, 325);
+            this.ClientSize = new System.Drawing.Size(713, 386);
             this.Controls.Add(this.checkBoxRestart);
             this.Controls.Add(this.checkBoxNotify);
             this.Controls.Add(this.checkBoxAutoRun);
@@ -198,6 +233,9 @@
         private System.Windows.Forms.TextBox textBoxArguments;
         private System.Windows.Forms.CheckBox checkBoxNotify;
         private System.Windows.Forms.CheckBox checkBoxRestart;
+        private System.Windows.Forms.TextBox textBoxArgumentsTerminate;
+        private System.Windows.Forms.TextBox textBoxFilesTerminate;
+        private System.Windows.Forms.Label label4;
 
 
     }
