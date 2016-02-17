@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="AutoRunClass.cs" />
     <Compile Include="ManagementObjectSearcher.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="XMLSettingsManagerClass.cs" />
     <Compile Include="frmStartup.cs">
       <SubType>Form</SubType>
