@@ -58,6 +58,7 @@ namespace NginxTray
         {
             // First I terminate all programs correctly
             this.terminateProgramms();
+            System.Threading.Thread.Sleep(1000);
             // Then I close remaining programs by force
             if (this.pids != null)
             {
@@ -65,7 +66,16 @@ namespace NginxTray
                 {
                     if (pid != 0)
                     {
-                        this.KillProcessAndChildren(pid);
+                        //this.KillProcessAndChildren(pid);
+                        try
+                        {
+                            Process proc = Process.GetProcessById(pid);
+                            proc.Kill();
+                        }
+                        catch (ArgumentException)
+                        {
+                            // Process already exited.
+                        }
                     }
                 }
             }
