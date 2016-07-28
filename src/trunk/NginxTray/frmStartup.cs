@@ -40,6 +40,18 @@ namespace NginxTray
             InitializeComponent();
             base.SetVisibleCore(false); // Hide this form at startup
 
+            // If same instance exists, then the program is terminated
+            if (System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Length > 1)
+            {
+                this.showIcon(errorIcon);
+                var programName = System.IO.Path.GetFileName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                var errorHeader = "Этот сервер уже был ранее запущен.";
+                var errorText = "Если его нет в трее, то завершите процесс: \"" + programName + "\" и все запущенные им процессы. Если не помогло, то завершите службу (Service): \"" + programName + "\" если она была запущена.";
+                errorIcon.ShowBalloonTip(1000, errorHeader, errorText, ToolTipIcon.Error);
+                System.Threading.Thread.Sleep(1000);
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
+
         }
 
         // check is the program in auto run
